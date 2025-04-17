@@ -1,0 +1,19 @@
+job-tracker/
+├── client/               # React frontend
+│   ├── public/           
+│   ├── src/              
+│   │   ├── components/   # Reusable UI pieces (e.g., JobCard, JobForm)
+│   │   ├── pages/        # Route-based views (e.g., HomePage, AddJobPage)
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── package.json
+│   └── tailwind.config.js (if using Tailwind)
+│
+├── server/               # Flask backend
+│   ├── app.py            # Main Flask app
+│   ├── .env
+│   ├── requirements.txt
+│   └── (optional: routes/, models/, etc.)
+│
+├── .gitignore
+└── README.md

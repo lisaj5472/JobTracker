@@ -1,0 +1,41 @@
+🔮 Future Features – Job Tracker App
+Built with Flask + MongoDB backend and React frontend
+
+--- PRIORITY ADDITIONS ---
+- Auto-fill appliedDate when status is "Applied"
+- Auto-fill rejectedDate when status is "Rejection Received"
+- Add ability to edit/update existing job entries (status, notes, etc.)
+- Add dropdown for status: Saved, Applied, Hiring in Process, Rejection Received
+
+--- UI + USABILITY ENHANCEMENTS ---
+- Add auto-dismiss to error messages:
+    import { useEffect } from "react";
+        useEffect(() => {
+        if (message) {
+            const timer = setTimeout(() => {
+            setMessage(null);
+            setMessageType(null);
+            }, 4000);
+            return () => clearTimeout(timer);
+        }
+        }, [message]);
+- Add ability to sort/filter jobs by status
+- Responsive layout for mobile use
+- Track job posting link and open directly from UI
+- Include resumeVersion field to track tailored resume versions per job
+- Include notes field for quick reminders or prep info
+
+--- INTERVIEW + FOLLOW-UP SUPPORT ---
+- Save interview questions and answers per job
+- Reflection/journal section for interview debriefs
+- Add follow-up reminders (1 week after applying, etc.)
+- Track multiple stages of interviews if “Hiring in Process”
+
+--- DATA AUTOMATION + INTEGRATION ---
+- Paste job link → auto-parse fields like title, company, and location
+- Future scraping support from job boards (LinkedIn, RemoteOK, etc.)
+- Optional integration with calendar or email for reminders
+
+--- LONG-TERM IDEAS ---
+- Basic analytics dashboard: apps submitted, interview rate, etc.
+- Convert app into a PWA for installable mobile experience

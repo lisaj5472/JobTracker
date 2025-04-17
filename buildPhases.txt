@@ -1,0 +1,26 @@
+🔹 Phase 1: Core Job Tracker (MVP)
+* Add jobs manually via a form (with required & optional fields)
+* View a list of all jobs
+* Auto-fill applied/rejected dates based on status
+* Store in MongoDB using Flask backend
+
+🔹 Phase 2: Resume + Cover Letter Storage
+* Track which resume/cover letter version was used per job
+* Upload or link to stored files
+* Optional: organize/tailor docs for re-use
+
+🔹 Phase 3: Interview Prep & Notes
+* Add interview dates, reflection notes
+* Save questions & answers
+* Filter/search by stage in hiring process
+
+🔹 Phase 4: Job Scraping or Parsing
+* Paste a job link → auto-fill fields (title, company, etc.)
+* Optionally scrape multiple job boards
+* Store scraped jobs for later review
+
+🔹 Phase 5: Automation + Smart Features
+* Reminders to follow up on applied jobs
+* Track follow-up stages visually
+* Build mobile support via PWA or React Native
+* Optional: multiple user support (for shared tracking)
