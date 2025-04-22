@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --blue: #0e2240;
+  --gold: #d4af37;
+  --red: #8b2332;
+  --gray: #f5f5f5;
+  --text: #1a1a1a;
+  background-color: var(--gray);
+  color: var(--text);
+  font-family: "Cormorant Garamond", serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  background-color: transparent;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  font-weight: 600;
+  padding: 0.5em 1.25em;
+  font-size: 0.875rem;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--gold);
+  color: var(--blue);
+}
+
+button:focus {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Nav Styling */
+nav {
+  background-color: var(--blue);
+  color: var(--gold);
+  border-bottom: 2px solid var(--gold);
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* Footer Styling */
+footer {
+  background-color: var(--blue);
+  color: var(--gold);
+  text-align: center;
+  padding: 1rem 0;
+  font-family: "Cinzel", serif;
+  border-top: 2px solid var(--gold);
+}
+
+.table-wrapper {
+  margin-top: 2rem;
+  margin-right: 1.25rem;
+  padding: 1rem;
+  background-color: #fff;
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  overflow-x: auto; /* Only if needed */
+}
+
+#quick-start-container {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  top: -9999px;
+}
