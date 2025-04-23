@@ -1,19 +1,50 @@
 job-tracker/
-├── client/               # React frontend
-│   ├── public/           
+├── client/               
+│   ├── public/
+│   │   ├── logo.png           
 │   ├── src/              
-│   │   ├── components/   # Reusable UI pieces (e.g., JobCard, JobForm)
-│   │   ├── pages/        # Route-based views (e.g., HomePage, AddJobPage)
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── package.json
-│   └── tailwind.config.js (if using Tailwind)
-│
-├── server/               # Flask backend
-│   ├── app.py            # Main Flask app
+│   │   ├── components/  
+│   │   │   ├── job
+│   │   │   │   ├── AddJob.tsx
+│   │   │   │   ├── EditJob.tsx
+│   │   │   │   ├── JobInputForm.tsx
+│   │   │   ├── resumes
+│   │   │   │   ├── ATSResumeTemplate.tsx
+│   │   │   │   ├── GenerateATSResumes.tsx
+│   │   │   │   ├── PDFDownloadButton.tsx
+│   │   │   │   ├── ResumeCard.tsx
+│   │   │   │   ├── ResumeEditor.tsx
+│   │   │   │   ├── ResumeLibrary.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── JobTable.tsx
+│   │   │   ├── Nav.tsx
+│   │   │   ├── UserProfile.tsx
+│   │   ├── pages/ 
+│   │   │   ├── Home.tsx
+│   │   │   ├── Resumes.tsx
+│   │   │   ├── Login.tsx
+│   │   ├── types/ 
+│   │   │   ├── index.ts
+│   │   ├── utils/ 
+│   │   │   ├── resumeHelpers.tsx
+│   │   ├── hooks/  
+│   │   ├── context/  
+│   │   ├── App.css
+│   │   ├── App.tsx
+│   │   ├── index.css
+│   │   └── main.tsx
+│   └── index.html
+│   
+├── server/
+│   ├── models
+│   │   ├── job_model.py
+│   │   ├── resume_model.py
+│   │   ├── user_model.py
+│   ├── routes
+│   │   ├── auth.py
+│   ├── app.py            
 │   ├── .env
 │   ├── requirements.txt
-│   └── (optional: routes/, models/, etc.)
 │
 ├── .gitignore
 └── README.md

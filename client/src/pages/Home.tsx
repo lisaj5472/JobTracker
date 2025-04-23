@@ -1,6 +1,6 @@
 // src/pages/Home.tsx
 import { useRef } from "react";
-import AddJob from "../components/AddJob";
+import AddJob from "../components/job/AddJob";
 import JobTable, { JobTableHandle } from "../components/JobTable";
 
 export default function Home() {
