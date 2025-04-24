@@ -14,7 +14,7 @@ function App() {
         <main className="flex-grow pt-16 w-full bg-gray-50 text-gray-800">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/resumes" element={<div>Resumes Page</div>} />
+            <Route path="/resumes" element={<Resumes />} />
           </Routes>
         </main>
 
