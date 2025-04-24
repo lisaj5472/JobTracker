@@ -2,6 +2,7 @@ import { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 import EditJobModal from "./EditJob";
 import { fetchJobs, deleteJob, updateJob } from "../../api/jobsApi";
 import type { Job, JobLibraryHandle } from "../../types/job";
+import JobCard from "./JobCard";
 
 const JobLibrary = forwardRef<JobLibraryHandle>((_, ref) => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -16,11 +17,6 @@ const JobLibrary = forwardRef<JobLibraryHandle>((_, ref) => {
     try {
       const data = await fetchJobs();
       setJobs(data);
-      setMessage("✅ Jobs fetched successfully!");
-      setMessageType("success");
-      setTimeout(() => {
-        setMessage(null);
-      }, 3000);
     } catch (error) {
       console.error("Fetch error:", error);
       setMessage("❌ Error fetching jobs.");
@@ -66,7 +62,7 @@ const JobLibrary = forwardRef<JobLibraryHandle>((_, ref) => {
   };
 
   return (
-    <div className="table-wrapper">
+    <div className="job-library-wrapper">
       {message && (
         <div
           className={`mb-4 p-3 rounded ${
@@ -79,68 +75,19 @@ const JobLibrary = forwardRef<JobLibraryHandle>((_, ref) => {
         </div>
       )}
       {jobs.length > 0 ? (
-        <table className="w-full">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="px-4 py-2 text-left">Job Title</th>
-              <th className="px-4 py-2 text-left">Company</th>
-              <th className="px-4 py-2 text-left">Posting Link</th>
-              <th className="px-4 py-2 text-left">Status</th>
-              <th className="px-4 py-2 text-left">Date Applied</th>
-              <th className="px-4 py-2 text-left">Date Rejected</th>
-              <th className="px-4 py-2 text-left">Resume Version</th>
-              <th className="px-4 py-2 text-left">Notes</th>
-              <th className="px-4 py-2 text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {jobs.map((job) => (
-              <tr key={job._id} className="border-b hover:bg-gray-50">
-                <td className="px-4 py-2">{job.jobTitle}</td>
-                <td className="px-4 py-2">{job.company}</td>
-                <td className="px-4 py-2">
-                  {job.postingLink ? (
-                    <a
-                      href={
-                        job.postingLink.startsWith("http")
-                          ? job.postingLink
-                          : `https://${job.postingLink}`
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {job.postingLink}
-                    </a>
-                  ) : (
-                    "N/A"
-                  )}
-                </td>
-                <td className="px-4 py-2">{job.status || "N/A"}</td>
-                <td className="px-4 py-2">{job.appliedDate || "N/A"}</td>
-                <td className="px-4 py-2">{job.rejectedDate || "N/A"}</td>
-                <td className="px-4 py-2">{job.resumeVersion || "N/A"}</td>
-                <td className="px-4 py-2">{job.notes || "N/A"}</td>
-
-                {/* Actions Column */}
-                <td className="px-4 py-2">
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => {
-                        setEditingJob(job);
-                        setIsModalOpen(true);
-                      }}
-                    >
-                      Update
-                    </button>
-                    <button onClick={() => handleDelete(job._id!)}>
-                      Delete
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="job-list">
+          {jobs.map((job) => (
+            <JobCard
+              key={job._id}
+              job={job}
+              onEdit={() => {
+                setEditingJob(job);
+                setIsModalOpen(true);
+              }}
+              onDelete={() => job._id && handleDelete(job._id)}
+            />
+          ))}
+        </div>
       ) : (
         <p>No jobs to display yet.</p>
       )}

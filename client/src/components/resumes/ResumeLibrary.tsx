@@ -29,10 +29,6 @@ export default function ResumeLibrary() {
     }
   };
 
-  const handleNewResume = () => {
-    alert("ResumeEditor not wired up yet!");
-  };
-
   useEffect(() => {
     showResumes();
   }, []);
@@ -41,7 +37,6 @@ export default function ResumeLibrary() {
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">My Resumes</h2>
-        <button onClick={handleNewResume}>+ New Resume</button>
       </div>
 
       {loading ? (

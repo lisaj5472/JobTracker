@@ -19,19 +19,23 @@ export default function ResumePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 p-6">
-      <header className="mb-6 flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Resumes</h1>
-        <button onClick={handleOpenBuilder}>Upload Resume</button>
-      </header>
+    <div className="home-container">
+      {/* Sidebar Menu */}
+      <aside className="sidebar">
+        <nav className="menu">
+          <button onClick={handleOpenBuilder}>Upload Resume</button>
+        </nav>
+        <ResumeBuilder
+          isOpen={isBuilderOpen}
+          onClose={handleCloseBuilder}
+          onParsed={handleParsedResume}
+        />
+      </aside>
 
-      <ResumeLibrary />
-
-      <ResumeBuilder
-        isOpen={isBuilderOpen}
-        onClose={handleCloseBuilder}
-        onParsed={handleParsedResume}
-      />
+      {/* Main Content */}
+      <main className="main-content">
+        <ResumeLibrary />
+      </main>
     </div>
   );
 }

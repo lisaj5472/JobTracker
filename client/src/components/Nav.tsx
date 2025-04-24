@@ -2,21 +2,23 @@ import { Link } from "react-router-dom";
 
 export default function Nav() {
   return (
-    <nav className="fixed top-0 left-0 w-full bg-[#0E2240] text-white shadow z-50">
-      <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4 py-3">
-        <div className="flex items-center gap-3">
-          <img src="/gold_logo_nobg.png" alt="Logo" className="h-10 w-auto" />
-          <span className="text-xl font-bold">Job Tracker</span>
+    <nav className="nav sticky top-0 left-0 w-full z-50">
+      <div className="nav-container">
+        {/* Left: Logo + Title */}
+        <div className="logo-title">
+          <img src="/gold_logo_nobg.png" alt="Logo" className="logo-img" />
+          <span className="logo-text">Job Tracker</span>
         </div>
 
-        <div className="flex gap-6 text-sm font-semibold uppercase tracking-wide">
-          <Link to="/" className="hover:underline">
+        {/* Right: Menu Links */}
+        <div className="nav-links">
+          <Link to="/" className="nav-link">
             Home
           </Link>
-          <Link to="/resumes" className="hover:underline">
+          <Link to="/resumes" className="nav-link">
             Resumes
           </Link>
-          <Link to="/profile" className="hover:underline">
+          <Link to="/profile" className="nav-link">
             Profile
           </Link>
         </div>
