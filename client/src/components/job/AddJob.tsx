@@ -1,7 +1,7 @@
 import { useState } from "react";
 import JobInputForm from "./JobInputForm";
 import { addJob } from "../../api/jobsApi";
-import normalizeJob from "../../utils/jobHelpers";
+import normalizeJob from "../../utils/normalizeJob";
 import { Job } from "../../types/job";
 
 type AddJobProps = {

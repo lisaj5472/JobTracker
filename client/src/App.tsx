@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Nav from "./components/Nav";
 import Home from "./pages/Home";
 import Resumes from "./pages/Resumes";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/resumes" element={<Resumes />} />
+            <Route path="/profile" element={<UserProfile />} />
           </Routes>
         </main>
 

@@ -16,6 +16,9 @@ export default function Nav() {
           <Link to="/resumes" className="hover:underline">
             Resumes
           </Link>
+          <Link to="/profile" className="hover:underline">
+            Profile
+          </Link>
         </div>
       </div>
     </nav>

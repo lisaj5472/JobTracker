@@ -57,8 +57,9 @@ button {
   justify-content: center;
   align-items: center;
   text-align: center;
-  min-width: 200px;
-  min-height: 40px;
+  width: 100%;
+  max-width: 250px;
+  min-width: 120px;
 }
 
 button:hover {
@@ -112,4 +113,43 @@ footer {
   pointer-events: none;
   position: absolute;
   top: -9999px;
+}
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  margin-top: 5rem;
+}
+
+.sidebar {
+  width: 100%;
+  max-width: 300px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* On large screens, make it two-column layout */
+@media (min-width: 1024px) {
+  .home-container {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 6rem;
+    align-self: flex-start;
+    width: 250px;
+    flex-shrink: 0;
+  }
+
+  .main-content {
+    flex-grow: 1;
+  }
 }

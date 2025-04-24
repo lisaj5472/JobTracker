@@ -10,6 +10,6 @@ export type Job = {
   notes?: string;
 };
 
-export type JobTableHandle = {
+export type JobLibraryHandle = {
   refresh: () => void;
 };

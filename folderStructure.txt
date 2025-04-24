@@ -16,7 +16,7 @@ job-tracker/
 │   │   │   │   ├── ResumeEditor.tsx
 │   │   │   │   ├── ResumeLibrary.tsx
 │   │   │   ├── Footer.tsx
-│   │   │   ├── JobTable.tsx
+│   │   │   ├── JobLibrary.tsx
 │   │   │   ├── Nav.tsx
 │   │   │   ├── UserProfile.tsx
 │   │   ├── pages/ 

@@ -1,9 +1,9 @@
 import { useState, useEffect, useImperativeHandle, forwardRef } from "react";
-import EditJobModal from "./job/EditJob";
-import { fetchJobs, deleteJob, updateJob } from "../api/jobsApi";
-import type { Job, JobTableHandle } from "../types/job";
+import EditJobModal from "./EditJob";
+import { fetchJobs, deleteJob, updateJob } from "../../api/jobsApi";
+import type { Job, JobLibraryHandle } from "../../types/job";
 
-const JobTable = forwardRef<JobTableHandle>((_, ref) => {
+const JobLibrary = forwardRef<JobLibraryHandle>((_, ref) => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [editingJob, setEditingJob] = useState<Job | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -53,7 +53,7 @@ const JobTable = forwardRef<JobTableHandle>((_, ref) => {
     const { _id, ...jobWithoutId } = updatedJob;
 
     try {
-      const result = await updateJob(_id, jobWithoutId);
+      const result = await updateJob(_id!, jobWithoutId);
       setJobs((prev) =>
         prev.map((job) => (job._id === id ? { ...job, ...result } : job))
       );
@@ -132,7 +132,7 @@ const JobTable = forwardRef<JobTableHandle>((_, ref) => {
                     >
                       Update
                     </button>
-                    <button onClick={() => handleDelete(job._id)}>
+                    <button onClick={() => handleDelete(job._id!)}>
                       Delete
                     </button>
                   </div>
@@ -148,10 +148,10 @@ const JobTable = forwardRef<JobTableHandle>((_, ref) => {
         isOpen={isModalOpen}
         job={editingJob!} // '!' because we only open the modal if it's set
         onClose={() => setIsModalOpen(false)}
-        onSave={(updatedJob) => handleUpdate(updatedJob._id, updatedJob)}
+        onSave={(updatedJob) => handleUpdate(updatedJob._id!, updatedJob)}
       />
     </div>
   );
 });
 
-export default JobTable;
+export default JobLibrary;
