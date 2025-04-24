@@ -1,21 +1,14 @@
 import { useForm, Controller } from "react-hook-form";
+import { Job } from "../../types/job";
 
-type JobFormData = {
-  jobTitle: string;
-  company: string;
-  postingLink?: string;
-  status?: string;
-  appliedDate?: string;
-  rejectedDate?: string;
-  resumeVersion?: string;
-  notes?: string;
-};
+type JobFormData = Omit<Job, "_id">;
 
-type JobFormProps = {
+export type JobFormProps = {
   onSubmit: (data: JobFormData, reset: () => void) => void;
+  onCancel?: () => void;
 };
 
-export default function JobInputForm({ onSubmit }: JobFormProps) {
+export default function JobInputForm({ onSubmit, onCancel }: JobFormProps) {
   const {
     handleSubmit,
     control,
@@ -181,7 +174,14 @@ export default function JobInputForm({ onSubmit }: JobFormProps) {
       </div>
 
       {/* Submit */}
-      <button type="submit">Add Job</button>
+      <div className="flex justify-between pt-4">
+        <button type="submit">Add Job</button>
+        {onCancel && (
+          <button type="button" onClick={onCancel}>
+            Cancel
+          </button>
+        )}
+      </div>
     </form>
   );
 }

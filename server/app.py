@@ -18,5 +18,11 @@ app.register_blueprint(resume_bp, url_prefix="/api")
 def home():
     return "Job Tracker Flask API is live!"
 
+@app.route("/<path:path>", methods=["GET", "POST", "PUT", "DELETE"])
+def catch_all(path):
+    print(f"⚠️ Unhandled request to /{path}")
+    return jsonify({"error": "Unhandled route", "path": path}), 404
+
+
 if __name__ == "__main__":
     app.run(debug=True)

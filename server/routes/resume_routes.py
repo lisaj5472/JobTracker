@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-from resume_model import validate_resume
+from models.resume_model import validate_resume
 import os
 
 resume_bp = Blueprint("resume_routes", __name__)

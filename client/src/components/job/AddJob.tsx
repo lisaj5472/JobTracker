@@ -1,59 +1,32 @@
 import { useState } from "react";
 import JobInputForm from "./JobInputForm";
-
-type Job = {
-  jobTitle: string;
-  company: string;
-  postingLink?: string;
-  status?: string;
-  appliedDate?: string;
-  rejectedDate?: string;
-  resumeVersion?: string;
-  notes?: string;
-};
+import { addJob } from "../../api/jobsApi";
+import normalizeJob from "../../utils/jobHelpers";
+import { Job } from "../../types/job";
 
 type AddJobProps = {
+  isOpen: boolean;
+  onClose: () => void;
   onSuccess: () => void;
 };
 
-export default function AddJob({ onSuccess }: AddJobProps) {
+export default function AddJob({ isOpen, onSuccess, onClose }: AddJobProps) {
   const [message, setMessage] = useState<string | null>(null);
   const [messageType, setMessageType] = useState<"success" | "error" | null>(
     null
   );
-  const addJob = async (newJob: Job, reset: () => void) => {
-    const today = new Date().toISOString().split("T")[0];
-    if (newJob.status === "applied" && !newJob.appliedDate) {
-      newJob.appliedDate = today;
-    }
-    if (newJob.status === "rejected" && !newJob.rejectedDate) {
-      newJob.rejectedDate = today;
-    }
-    const cleanLink = newJob.postingLink?.startsWith("http")
-      ? newJob.postingLink
-      : `https://${newJob.postingLink?.trim()}`;
 
-    const jobToSend = {
-      ...newJob,
-      postingLink: cleanLink,
-    };
+  if (!isOpen) return null;
+
+  const postJob = async (newJob: Job, reset: () => void) => {
     try {
-      const response = await fetch("http://localhost:5000/jobs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(jobToSend),
-      });
-      if (!response.ok) {
-        setMessage("Failed to save job.");
-        setMessageType("error");
-        return;
-      }
+      const jobToSend = normalizeJob(newJob);
+      await addJob(jobToSend);
       setMessage("✅ Job saved successfully!");
       setMessageType("success");
       reset();
       onSuccess();
+      onClose();
       console.log("✅ Job saved:", jobToSend);
     } catch (err) {
       setMessage("❌ Something went wrong. Please try again.");
@@ -63,13 +36,12 @@ export default function AddJob({ onSuccess }: AddJobProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 p-6">
-      <header className="mb-8">
-        <h1>Job Tracker</h1>
-        <p>Track all your applications in one place.</p>
-      </header>
-      <main>
-        <JobInputForm onSubmit={addJob} />
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded p-6 w-full max-w-xl max-h-[90vh] overflow-y-auto shadow-lg relative">
+        <h2 className="text-xl font-bold mb-4">Add a New Job</h2>
+        <p>You only need to fill out the fields you want to add.</p>
+
+        <JobInputForm onSubmit={postJob} onCancel={onClose} />
         {message && (
           <div
             className={`mb-4 p-3 rounded ${
@@ -81,7 +53,7 @@ export default function AddJob({ onSuccess }: AddJobProps) {
             {message}
           </div>
         )}
-      </main>
+      </div>
     </div>
   );
 }

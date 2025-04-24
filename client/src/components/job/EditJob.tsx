@@ -1,5 +1,5 @@
 import { useForm, Controller } from "react-hook-form";
-import { Job } from "./JobTable";
+import { Job } from "../../types/job";
 
 type EditJobModalProps = {
   isOpen: boolean;
@@ -29,6 +29,7 @@ export default function EditJobModal({
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
       <div className="bg-white rounded p-6 w-full max-w-xl shadow-lg relative">
         <h2 className="text-xl font-bold mb-4">Edit Job</h2>
+        <p>You only need to fill out the fields you want to update.</p>
 
         <form onSubmit={handleSubmit(submitHandler)} className="space-y-4">
           {/* Job Title */}

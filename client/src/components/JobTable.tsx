@@ -1,93 +1,65 @@
 import { useState, useEffect, useImperativeHandle, forwardRef } from "react";
-import EditJobModal from "./EditJob";
-
-export type Job = {
-  _id: string;
-  jobTitle: string;
-  company: string;
-  postingLink?: string;
-  status?: string;
-  appliedDate?: string;
-  rejectedDate?: string;
-  resumeVersion?: string;
-  notes?: string;
-};
-
-export type JobTableHandle = {
-  refresh: () => void;
-};
+import EditJobModal from "./job/EditJob";
+import { fetchJobs, deleteJob, updateJob } from "../api/jobsApi";
+import type { Job, JobTableHandle } from "../types/job";
 
 const JobTable = forwardRef<JobTableHandle>((_, ref) => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [editingJob, setEditingJob] = useState<Job | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const fetchJobs = () => {
-    fetch("http://localhost:5000/jobs")
-      .then((res) => res.json())
-      .then((data) => {
-        setJobs(data);
-      })
-      .catch((err) => console.error("❌ Error fetching jobs:", err));
-  };
-
-  useEffect(() => {
-    fetchJobs();
-  }, []);
-
-  useImperativeHandle(ref, () => ({
-    refresh: fetchJobs,
-  }));
-
   const [message, setMessage] = useState<string | null>(null);
   const [messageType, setMessageType] = useState<"success" | "error">(
     "success"
   );
+
+  const loadJobs = async () => {
+    try {
+      const data = await fetchJobs();
+      setJobs(data);
+      setMessage("✅ Jobs fetched successfully!");
+      setMessageType("success");
+      setTimeout(() => {
+        setMessage(null);
+      }, 3000);
+    } catch (error) {
+      console.error("Fetch error:", error);
+      setMessage("❌ Error fetching jobs.");
+      setMessageType("error");
+    }
+  };
+
+  useEffect(() => {
+    loadJobs();
+  }, []);
+
+  useImperativeHandle(ref, () => ({
+    refresh: loadJobs,
+  }));
+
   const handleDelete = async (id: string) => {
     try {
-      const res = await fetch(`http://localhost:5000/jobs/${id}`, {
-        method: "DELETE",
-      });
-      if (res.ok) {
-        setJobs((prev) => prev.filter((job) => job._id !== id));
-      } else {
-        setMessage("Failed to delete job.");
-        setMessageType("error");
-        console.error("Failed to delete job");
-      }
+      await deleteJob(id);
+      setJobs((prev) => prev.filter((job) => job._id !== id));
+      setMessage("Job deleted successfully!");
+      setMessageType("success");
     } catch (err) {
-      setMessage("❌ Something went wrong. Please try again.");
-      console.error("Delete error:", err);
+      console.error("❌ DELETE error:", err);
+      setMessage("❌ Error deleting job.");
+      setMessageType("error");
     }
   };
 
   const handleUpdate = async (id: string, updatedJob: Job) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { _id, ...jobWithoutId } = updatedJob;
 
     try {
-      const res = await fetch(`http://localhost:5000/jobs/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(jobWithoutId),
-      });
-
-      const result = await res.json();
-      console.log("✅ PUT response:", result);
-
-      if (res.ok) {
-        setJobs((prev) =>
-          prev.map((job) => (job._id === id ? { ...job, ...result } : job))
-        );
-        setMessage("Job updated successfully!");
-        setMessageType("success");
-        fetchJobs();
-      } else {
-        setMessage("Failed to update job.");
-        setMessageType("error");
-      }
+      const result = await updateJob(_id, jobWithoutId);
+      setJobs((prev) =>
+        prev.map((job) => (job._id === id ? { ...job, ...result } : job))
+      );
+      setMessage("Job updated successfully!");
+      setMessageType("success");
+      loadJobs();
     } catch (err) {
       console.error("❌ PUT error:", err);
     }
